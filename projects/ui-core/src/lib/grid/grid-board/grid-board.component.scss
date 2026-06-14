@@ -1,0 +1,58 @@
+// ============================================================================
+// CSS Custom Properties (Design Tokens) — Overridable by consuming apps
+// ============================================================================
+ui-grid-board {
+  --ui-lib-grid-columns: var(--ui-grid-columns, 12);
+  --ui-lib-grid-gap: var(--ui-grid-gap, 16px);
+  --ui-lib-grid-row-height: var(--ui-grid-row-height, 100px);
+  --ui-lib-grid-min-height: var(--ui-grid-min-height, 400px);
+  --ui-lib-grid-line-color: var(--ui-grid-line-color, rgba(0, 0, 0, 0.06));
+  --ui-lib-grid-line-color-active: var(--ui-grid-line-color-active, rgba(103, 80, 164, 0.2));
+
+  display: block;
+  width: 100%;
+}
+
+// ── Grid container ─────────────────────────────────────────────────────────
+.ui-grid-board {
+  display: grid;
+  min-height: var(--ui-lib-grid-min-height);
+  position: relative;
+}
+
+// ── Grid guide line cells ────────────────────────────────────────────────
+// Render in the same CSS Grid as the items, behind them via z-index.
+// Each cell is a subtle dashed outline that makes the grid structure visible
+// and helps the user align items when dragging or resizing.
+.ui-grid-board__cell {
+  border: 1px dashed var(--ui-lib-grid-line-color);
+  border-radius: 2px;
+  pointer-events: none;
+  transition: border-color 200ms ease;
+}
+
+// ── More prominent lines during drag/resize ─────────────────────────────
+.ui-grid-board--dragging .ui-grid-board__cell {
+  border-color: var(--ui-lib-grid-line-color-active);
+}
+
+// ── CDK Drag feedback ────────────────────────────────────────────────────
+// When a grid item is being dragged, it gets elevated
+ui-grid-board .cdk-dragging {
+  opacity: 0.85;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important;
+  z-index: 10;
+}
+
+// ── Default content fallback ──────────────────────────────────────────────
+.ui-grid-board__default-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: var(--ui-lib-font-family, 'Roboto', sans-serif);
+  font-size: var(--ui-lib-font-size-sm, 0.75rem);
+  color: var(--ui-lib-color-on-surface, #1c1b1f);
+  opacity: 0.6;
+  user-select: none;
+}

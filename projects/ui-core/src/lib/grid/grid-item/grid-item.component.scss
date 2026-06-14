@@ -1,0 +1,70 @@
+// ============================================================================
+// CSS Custom Properties (Design Tokens) — Overridable by consuming apps
+// ============================================================================
+:host {
+  --ui-lib-grid-item-bg: var(--ui-grid-item-bg, #ffffff);
+  --ui-lib-grid-item-border-color: var(--ui-grid-item-border-color, #e0e0e0);
+  --ui-lib-grid-item-border-radius: var(--ui-grid-item-border-radius, 8px);
+  --ui-lib-grid-item-shadow: var(--ui-grid-item-shadow, 0 1px 3px rgba(0, 0, 0, 0.1));
+  --ui-lib-grid-item-resize-size: var(--ui-grid-item-resize-size, 10px);
+
+  display: block;
+  position: relative;
+  background: var(--ui-lib-grid-item-bg);
+  border: 1px solid var(--ui-lib-grid-item-border-color);
+  border-radius: var(--ui-lib-grid-item-border-radius);
+  box-shadow: var(--ui-lib-grid-item-shadow);
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  transition: box-shadow var(--ui-lib-transition-duration, 200ms) var(--ui-lib-transition-easing, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+// ── Drag visual feedback ──────────────────────────────────────────────────
+// CDK adds .cdk-dragging when an item is being dragged
+:host.cdk-dragging {
+  opacity: 0.85;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  z-index: 10;
+}
+
+// ── Resize active state ────────────────────────────────────────────────────
+:host.ui-grid-item--resizing {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+  border-color: var(--ui-lib-color-primary, #6750a4);
+}
+
+// ── Content area ───────────────────────────────────────────────────────────
+.ui-grid-item__content {
+  padding: var(--ui-lib-grid-item-padding, 16px);
+  height: 100%;
+  overflow: auto;
+}
+
+// ── Resize handle (bottom-right corner) ───────────────────────────────────
+.ui-grid-item__resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--ui-lib-grid-item-resize-size);
+  height: var(--ui-lib-grid-item-resize-size);
+  cursor: nwse-resize;
+
+  // Visual indicator: a subtle diagonal line pattern
+  &::before {
+    content: '';
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid var(--ui-lib-grid-item-border-color);
+    border-bottom: 2px solid var(--ui-lib-grid-item-border-color);
+    opacity: 0.5;
+  }
+
+  &:hover::before {
+    opacity: 1;
+    border-color: var(--ui-lib-color-primary, #6750a4);
+  }
+}

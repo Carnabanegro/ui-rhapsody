@@ -1,0 +1,11 @@
+<div class="ui-grid-item__content">
+  <ng-content />
+</div>
+<div class="ui-grid-item__resize-handle"
+     tabindex="0"
+     role="separator"
+     aria-orientation="horizontal"
+     (pointerdown)="onStartResize($event)"
+     (keydown)="onResizeKeyDown($event)"
+     aria-label="Resize">
+</div>

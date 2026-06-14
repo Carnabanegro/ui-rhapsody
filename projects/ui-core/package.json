@@ -1,0 +1,24 @@
+{
+  "name": "@ui-rhapsody/core",
+  "version": "0.0.1",
+  "description": "UI component library for Angular — core primitives (button, grid)",
+  "license": "MIT",
+  "keywords": ["angular", "ui", "components", "grid", "button"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Carnabanegro/ui-rhapsody"
+  },
+  "homepage": "https://github.com/Carnabanegro/ui-rhapsody#readme",
+  "bugs": {
+    "url": "https://github.com/Carnabanegro/ui-rhapsody/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/cdk": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

@@ -1,0 +1,218 @@
+// ============================================================================
+// CSS Custom Properties (Design Tokens)
+// Overridable by consuming applications via ::ng-deep or :root
+// ============================================================================
+
+:host {
+  // ── Color tokens ─────────────────────────────────────────────
+  --ui-lib-color-primary: var(--ui-color-primary, #6750a4);
+  --ui-lib-color-primary-light: var(--ui-color-primary-light, #e8def8);
+  --ui-lib-color-primary-dark: var(--ui-color-primary-dark, #4f378b);
+  --ui-lib-color-on-primary: var(--ui-color-on-primary, #ffffff);
+
+  --ui-lib-color-accent: var(--ui-color-accent, #625b71);
+  --ui-lib-color-accent-light: var(--ui-color-accent-light, #e8def8);
+  --ui-lib-color-accent-dark: var(--ui-color-accent-dark, #4a4458);
+  --ui-lib-color-on-accent: var(--ui-color-on-accent, #ffffff);
+
+  --ui-lib-color-warn: var(--ui-color-warn, #b3261e);
+  --ui-lib-color-warn-light: var(--ui-color-warn-light, #f9dedc);
+  --ui-lib-color-warn-dark: var(--ui-color-warn-dark, #8c1d18);
+  --ui-lib-color-on-warn: var(--ui-color-on-warn, #ffffff);
+
+  // ── Surface & content tokens ─────────────────────────────────
+  --ui-lib-color-surface: var(--ui-color-surface, #fffbfe);
+  --ui-lib-color-on-surface: var(--ui-color-on-surface, #1c1b1f);
+  --ui-lib-color-outline: var(--ui-color-outline, #79747e);
+
+  // ── Spacing tokens ───────────────────────────────────────────
+  --ui-lib-spacing-sm: var(--ui-spacing-sm, 0.25rem);
+  --ui-lib-spacing-md: var(--ui-spacing-md, 0.5rem);
+  --ui-lib-spacing-lg: var(--ui-spacing-lg, 1rem);
+
+  // ── Typography tokens ─────────────────────────────────────────
+  --ui-lib-font-family: var(--ui-font-family, 'Roboto', sans-serif);
+  --ui-lib-font-size-sm: var(--ui-font-size-sm, 0.75rem);
+  --ui-lib-font-size-md: var(--ui-font-size-md, 0.875rem);
+  --ui-lib-font-size-lg: var(--ui-font-size-lg, 1rem);
+
+  // ── Shape tokens ──────────────────────────────────────────────
+  --ui-lib-border-radius-sm: var(--ui-border-radius-sm, 4px);
+  --ui-lib-border-radius-md: var(--ui-border-radius-md, 8px);
+  --ui-lib-border-radius-lg: var(--ui-border-radius-lg, 12px);
+  --ui-lib-border-radius-full: var(--ui-border-radius-full, 9999px);
+
+  // ── Motion tokens ────────────────────────────────────────────
+  --ui-lib-transition-duration: var(--ui-transition-duration, 200ms);
+  --ui-lib-transition-easing: var(--ui-transition-easing, cubic-bezier(0.4, 0, 0.2, 1));
+
+  display: inline-block;
+}
+
+// ============================================================================
+// Inner <button> element
+// ============================================================================
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ui-lib-spacing-sm);
+  border: none;
+  cursor: pointer;
+  font-family: var(--ui-lib-font-family);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background-color var(--ui-lib-transition-duration) var(--ui-lib-transition-easing),
+    color var(--ui-lib-transition-duration) var(--ui-lib-transition-easing),
+    border-color var(--ui-lib-transition-duration) var(--ui-lib-transition-easing),
+    box-shadow var(--ui-lib-transition-duration) var(--ui-lib-transition-easing);
+  outline: none;
+
+  // Reset default button styles
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// ============================================================================
+// Sizes
+// ============================================================================
+.ui-button--sm {
+  height: 2rem;
+  padding: 0 var(--ui-lib-spacing-md);
+  font-size: var(--ui-lib-font-size-sm);
+  border-radius: var(--ui-lib-border-radius-sm);
+}
+
+.ui-button--md {
+  height: 2.5rem;
+  padding: 0 var(--ui-lib-spacing-lg);
+  font-size: var(--ui-lib-font-size-md);
+  border-radius: var(--ui-lib-border-radius-md);
+}
+
+.ui-button--lg {
+  height: 3rem;
+  padding: 0 var(--ui-lib-spacing-lg);
+  font-size: var(--ui-lib-font-size-lg);
+  border-radius: var(--ui-lib-border-radius-lg);
+}
+
+// ============================================================================
+// Variants × Colors
+// ============================================================================
+
+// ── Solid ───────────────────────────────────────────────────────
+.ui-button--solid.ui-button--primary {
+  background-color: var(--ui-lib-color-primary);
+  color: var(--ui-lib-color-on-primary);
+
+  &:hover {
+    background-color: var(--ui-lib-color-primary-dark);
+  }
+}
+
+.ui-button--solid.ui-button--accent {
+  background-color: var(--ui-lib-color-accent);
+  color: var(--ui-lib-color-on-accent);
+
+  &:hover {
+    background-color: var(--ui-lib-color-accent-dark);
+  }
+}
+
+.ui-button--solid.ui-button--warn {
+  background-color: var(--ui-lib-color-warn);
+  color: var(--ui-lib-color-on-warn);
+
+  &:hover {
+    background-color: var(--ui-lib-color-warn-dark);
+  }
+}
+
+// ── Outline ─────────────────────────────────────────────────────
+.ui-button--outline.ui-button--primary {
+  background-color: transparent;
+  color: var(--ui-lib-color-primary);
+  border: 1px solid var(--ui-lib-color-primary);
+
+  &:hover {
+    background-color: var(--ui-lib-color-primary-light);
+  }
+}
+
+.ui-button--outline.ui-button--accent {
+  background-color: transparent;
+  color: var(--ui-lib-color-accent);
+  border: 1px solid var(--ui-lib-color-accent);
+
+  &:hover {
+    background-color: var(--ui-lib-color-accent-light);
+  }
+}
+
+.ui-button--outline.ui-button--warn {
+  background-color: transparent;
+  color: var(--ui-lib-color-warn);
+  border: 1px solid var(--ui-lib-color-warn);
+
+  &:hover {
+    background-color: var(--ui-lib-color-warn-light);
+  }
+}
+
+// ── Text ────────────────────────────────────────────────────────
+.ui-button--text.ui-button--primary {
+  background-color: transparent;
+  color: var(--ui-lib-color-primary);
+
+  &:hover {
+    background-color: var(--ui-lib-color-primary-light);
+  }
+}
+
+.ui-button--text.ui-button--accent {
+  background-color: transparent;
+  color: var(--ui-lib-color-accent);
+
+  &:hover {
+    background-color: var(--ui-lib-color-accent-light);
+  }
+}
+
+.ui-button--text.ui-button--warn {
+  background-color: transparent;
+  color: var(--ui-lib-color-warn);
+
+  &:hover {
+    background-color: var(--ui-lib-color-warn-light);
+  }
+}
+
+// ============================================================================
+// Focus state (driven by CDK FocusMonitor)
+// ============================================================================
+.ui-button--focused {
+  box-shadow: 0 0 0 2px var(--ui-lib-color-surface),
+              0 0 0 4px var(--ui-lib-color-primary);
+}
+
+// ============================================================================
+// Disabled state
+// ============================================================================
+.ui-button--disabled {
+  opacity: 0.38;
+  cursor: default;
+  pointer-events: none;
+}
+
+// ============================================================================
+// Content wrapper
+// ============================================================================
+.ui-button__content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ui-lib-spacing-sm);
+}

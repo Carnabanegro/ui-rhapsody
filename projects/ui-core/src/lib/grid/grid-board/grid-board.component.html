@@ -1,0 +1,37 @@
+<div class="ui-grid-board"
+     [class.ui-grid-board--dragging]="isDragging()"
+     [style.grid-template-columns]="gridTemplateColumns()"
+     [style.gap]="gap() + 'px'"
+     [style.grid-auto-rows]="rowHeight() + 'px'"
+     #gridContainer>
+
+  <!-- Grid guide lines (subtle background) -->
+  @for (cell of gridCells(); track cell.id) {
+    <div class="ui-grid-board__cell"
+         aria-hidden="true"
+         [style.gridColumn]="cell.col"
+         [style.gridRow]="cell.row">
+    </div>
+  }
+
+  <!-- Grid items (draggable, on top of guide lines) -->
+  @for (item of items(); track item.id) {
+    <ui-grid-item
+      [config]="item"
+      cdkDrag
+      [cdkDragDisabled]="dragDisabled()"
+      cdkDragBoundary=".ui-grid-board"
+      (cdkDragStarted)="onDragStart()"
+      (cdkDragEnded)="onDragEnd($event, item)"
+      (resizeEnd)="onResizeEnd(item, $event)">
+      @if (itemTemplate(); as tmpl) {
+        <ng-container
+          [ngTemplateOutlet]="tmpl"
+          [ngTemplateOutletContext]="{ $implicit: item }" />
+      } @else {
+        <span class="ui-grid-board__default-content">{{ item.id }}</span>
+      }
+    </ui-grid-item>
+  }
+
+</div>

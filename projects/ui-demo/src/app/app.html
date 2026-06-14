@@ -1,0 +1,250 @@
+<main class="showcase">
+  <header class="showcase__header">
+    <h1>UI Core — Component Showcase</h1>
+    <p>Librería de componentes dumb para Angular 22</p>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- BUTTON DEMO                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="showcase__section">
+    <h2>UiButton</h2>
+
+    <div class="showcase__controls">
+      <label>Variant:
+        @for (v of variants; track v) {
+          <button class="toggle" [class.toggle--active]="selectedVariant() === v" (click)="selectedVariant.set(v)">{{ v }}</button>
+        }
+      </label>
+
+      <label>Color:
+        @for (c of colors; track c) {
+          <button class="toggle" [class.toggle--active]="selectedColor() === c" (click)="selectedColor.set(c)">{{ c }}</button>
+        }
+      </label>
+
+      <label>Size:
+        @for (s of sizes; track s) {
+          <button class="toggle" [class.toggle--active]="selectedSize() === s" (click)="selectedSize.set(s)">{{ s }}</button>
+        }
+      </label>
+
+      <label class="toggle-toggle">
+        <input type="checkbox" [checked]="isDisabled()" (change)="isDisabled.set(!isDisabled())" />
+        Disabled
+      </label>
+    </div>
+
+    <div class="showcase__preview">
+      <ui-button
+        [variant]="selectedVariant()"
+        [color]="selectedColor()"
+        [size]="selectedSize()"
+        [disabled]="isDisabled()"
+        (btnClick)="lastClick.set('clicked!')">
+        Click me
+      </ui-button>
+      <p class="showcase__log">Last event: {{ lastClick() }}</p>
+    </div>
+
+    <!-- All combinations -->
+    <div class="showcase__matrix">
+      @for (variant of variants; track variant) {
+        <div class="showcase__matrix-row">
+          @for (color of colors; track color) {
+            <ui-button [variant]="variant" [color]="color" [size]="'sm'" (btnClick)="lastClick.set(variant + ' ' + color)">
+              {{ variant }} {{ color }}
+            </ui-button>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- GRID DEMO — Full ui-charts Dashboard                            -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="showcase__section">
+    <h2>UiGridBoard — Charts Dashboard</h2>
+    <p class="showcase__hint">Arrastrá los items para reposicionarlos. Arrastrá desde la esquina inferior derecha para redimensionar.</p>
+
+    <ui-grid-board
+      [items]="gridItems()"
+      [columns]="12"
+      [gap]="16"
+      [rowHeight]="100"
+      [itemTemplate]="itemDef"
+      (layoutChange)="onLayoutChange($event)">
+
+      <ng-template #itemDef let-item>
+        @switch (item.id) {
+          @case ('kpi-radial') {
+            <div class="dashboard-card dashboard-card--kpi">
+              <h3>KPI Metrics</h3>
+              <ui-radial-bar-chart
+                [series]="mocks.radialBarSeries"
+                [labels]="mocks.radialBarLabels"
+                height="100%" />
+            </div>
+          }
+          @case ('kpi-uptime') {
+            <div class="dashboard-card dashboard-card--kpi">
+              <h3>System Uptime</h3>
+              <ui-radial-bar-chart
+                [series]="mocks.radialBarSeries2"
+                [labels]="mocks.radialBarLabels2"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-revenue') {
+            <div class="dashboard-card">
+              <h3>Revenue vs Expenses</h3>
+              <ui-area-chart
+                [series]="mocks.areaSeries"
+                [xaxis]="mocks.areaXaxis"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-traffic') {
+            <div class="dashboard-card">
+              <h3>Traffic Sources</h3>
+              <ui-bar-chart
+                [series]="mocks.barSeries"
+                [xaxis]="mocks.barXaxis"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-bar') {
+            <div class="dashboard-card">
+              <h3>Monthly Comparison</h3>
+              <ui-bar-chart
+                [series]="mocks.barSeries"
+                [xaxis]="mocks.barXaxis"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-line') {
+            <div class="dashboard-card">
+              <h3>Sessions & Bounces</h3>
+              <ui-line-chart
+                [series]="mocks.lineSeries"
+                [xaxis]="mocks.lineXaxis"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-pie') {
+            <div class="dashboard-card">
+              <h3>Device Split</h3>
+              <ui-pie-chart
+                [series]="mocks.pieSeries"
+                [labels]="mocks.pieLabels"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-donut') {
+            <div class="dashboard-card">
+              <h3>Acquisition Channel</h3>
+              <ui-donut-chart
+                [series]="mocks.donutSeries"
+                [labels]="mocks.donutLabels"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-scatter') {
+            <div class="dashboard-card">
+              <h3>Team Correlation</h3>
+              <ui-scatter-chart
+                [series]="mocks.scatterSeries"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-bubble') {
+            <div class="dashboard-card">
+              <h3>Product Distribution</h3>
+              <ui-bubble-chart
+                [series]="mocks.bubbleSeries"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-radar') {
+            <div class="dashboard-card">
+              <h3>Skills Radar</h3>
+              <ui-radar-chart
+                [series]="mocks.radarSeries"
+                [xaxis]="mocks.radarXaxis"
+                [yaxis]="mocks.radarYaxis"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-heatmap') {
+            <div class="dashboard-card">
+              <h3>Activity Heatmap</h3>
+              <ui-heatmap-chart
+                [series]="mocks.heatmapSeries"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-treemap') {
+            <div class="dashboard-card">
+              <h3>Revenue by Segment</h3>
+              <ui-treemap-chart
+                [series]="mocks.treemapSeries"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-range-area') {
+            <div class="dashboard-card">
+              <h3>Temperature Range</h3>
+              <ui-range-area-chart
+                [series]="mocks.rangeAreaSeries"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-range-bar') {
+            <div class="dashboard-card">
+              <h3>Project Timeline</h3>
+              <ui-range-bar-chart
+                [series]="mocks.rangeBarSeries"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-candlestick') {
+            <div class="dashboard-card">
+              <h3>Stock Price</h3>
+              <ui-candlestick-chart
+                [series]="mocks.candlestickSeries"
+                [xaxis]="mocks.candlestickXaxis"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-polar-area') {
+            <div class="dashboard-card">
+              <h3>Framework Popularity</h3>
+              <ui-polar-area-chart
+                [series]="mocks.polarAreaSeries"
+                [labels]="mocks.polarAreaLabels"
+                height="100%" />
+            </div>
+          }
+          @case ('chart-box-plot') {
+            <div class="dashboard-card">
+              <h3>API Response Time</h3>
+              <ui-box-plot-chart
+                [series]="mocks.boxPlotSeries"
+                height="100%" />
+            </div>
+          }
+          @default {
+            <span class="showcase__default-content">{{ item.id }}</span>
+          }
+        }
+      </ng-template>
+
+    </ui-grid-board>
+
+    <details class="showcase__debug">
+      <summary>Layout JSON</summary>
+      <pre>{{ gridItems() | json }}</pre>
+    </details>
+  </section>
+</main>
