@@ -5,13 +5,26 @@ import type { ApexChartsRuntime } from './chart-types';
 // Every chart component must include these styles to establish a proper
 // height chain from the host element down to the ApexCharts container.
 //
-// With ViewEncapsulation.None, :host selector compiles to the component's
-// attribute selector (e.g. ui-line-chart), so `:host apx-chart` targets
-// only the <apx-chart> child of THIS component — no global leak.
-export const CHART_CONTAINER_STYLES = `
-  :host { display: block; width: 100%; height: 100%; }
-  :host apx-chart { display: block; width: 100%; height: 100%; }
-`;
+// IMPORTANT: With ViewEncapsulation.None, `:host` does NOT work because
+// there is no Shadow DOM. Each chart component MUST set its own host styles
+// using chartHostStyles('ui-xxx-chart') which generates selector-scoped CSS.
+export const CHART_CONTAINER_STYLES = '';
+
+/**
+ * Generates scoped host styles for a chart component.
+ * Usage in component decorator:
+ *   `styles: [chartHostStyles('ui-line-chart')]`
+ *
+ * This creates:
+ *   ui-line-chart { display: block; width: 100%; height: 100%; }
+ *   ui-line-chart apx-chart { display: block; width: 100%; height: 100%; }
+ *
+ * Both rules are scoped to the specific chart selector, preventing global leaks
+ * while ensuring the height chain works with ViewEncapsulation.None.
+ */
+export function chartHostStyles(selector: string): string {
+  return `${selector} { display: block; width: 100%; height: 100%; } ${selector} apx-chart { display: block; width: 100%; height: 100%; }`;
+}
 
 // ── Resize handle interface ──────────────────────────────────────────────
 export interface ChartResizeHandle {

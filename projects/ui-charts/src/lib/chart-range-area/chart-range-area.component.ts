@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, input, output, c
 import { ChartComponent } from 'ng-apexcharts';
 import type { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexYAxis, ApexStroke, ApexFill, ApexDataLabels, ApexTooltip, ApexLegend, ApexGrid, ApexForecastDataPoints, ApexTitleSubtitle } from '../chart-inputs';
 import { buildChartDefaults } from '../chart-defaults';
-import { connectChartResize, CHART_CONTAINER_STYLES } from '../chart-resize';
+import { connectChartResize, chartHostStyles } from '../chart-resize';
 import type { ChartReadyEvent } from '../chart-types';
 
-@Component({ selector: 'ui-range-area-chart', standalone: true, imports: [ChartComponent], template: `<apx-chart [series]="series()" [chart]="chartConfig()" [xaxis]="xaxis()" [yaxis]="yaxis()" [stroke]="stroke()" [fill]="fill()" [dataLabels]="dataLabels()" [tooltip]="mergedTooltip()" [legend]="mergedLegend()" [grid]="mergedGrid()" [forecastDataPoints]="forecastDataPoints()" [title]="title()" [colors]="mergedColors()" (chartReady)="onChartReady($event)" />`, styles: [CHART_CONTAINER_STYLES], changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None })
+@Component({ selector: 'ui-range-area-chart', standalone: true, imports: [ChartComponent], template: `<apx-chart [series]="series()" [chart]="chartConfig()" [xaxis]="xaxis()" [yaxis]="yaxis()" [stroke]="stroke()" [fill]="fill()" [dataLabels]="dataLabels()" [tooltip]="mergedTooltip()" [legend]="mergedLegend()" [grid]="mergedGrid()" [forecastDataPoints]="forecastDataPoints()" [title]="title()" [colors]="mergedColors()" (chartReady)="onChartReady($event)" />`, styles: [chartHostStyles('ui-range-area-chart')], changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None })
 export class UiRangeAreaChartComponent implements OnDestroy {
   readonly series = input.required<ApexAxisChartSeries>();
   readonly height = input<number | string>(350);

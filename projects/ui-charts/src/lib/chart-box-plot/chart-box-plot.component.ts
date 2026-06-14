@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, input, output, c
 import { ChartComponent } from 'ng-apexcharts';
 import type { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexYAxis, ApexStroke, ApexFill, ApexDataLabels, ApexTooltip, ApexLegend, ApexPlotOptions, ApexGrid, ApexTitleSubtitle } from '../chart-inputs';
 import { buildChartDefaults } from '../chart-defaults';
-import { connectChartResize, CHART_CONTAINER_STYLES } from '../chart-resize';
+import { connectChartResize, chartHostStyles } from '../chart-resize';
 import type { ChartReadyEvent } from '../chart-types';
 
-@Component({ selector: 'ui-box-plot-chart', standalone: true, imports: [ChartComponent], template: `<apx-chart [series]="series()" [chart]="chartConfig()" [xaxis]="xaxis()" [yaxis]="yaxis()" [stroke]="stroke()" [fill]="fill()" [dataLabels]="dataLabels()" [plotOptions]="plotOptions()" [tooltip]="mergedTooltip()" [legend]="mergedLegend()" [grid]="mergedGrid()" [title]="title()" [colors]="mergedColors()" (chartReady)="onChartReady($event)" />`, styles: [CHART_CONTAINER_STYLES], changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None })
+@Component({ selector: 'ui-box-plot-chart', standalone: true, imports: [ChartComponent], template: `<apx-chart [series]="series()" [chart]="chartConfig()" [xaxis]="xaxis()" [yaxis]="yaxis()" [stroke]="stroke()" [fill]="fill()" [dataLabels]="dataLabels()" [plotOptions]="plotOptions()" [tooltip]="mergedTooltip()" [legend]="mergedLegend()" [grid]="mergedGrid()" [title]="title()" [colors]="mergedColors()" (chartReady)="onChartReady($event)" />`, styles: [chartHostStyles('ui-box-plot-chart')], changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None })
 export class UiBoxPlotChartComponent implements OnDestroy {
   readonly series = input.required<ApexAxisChartSeries>();
   readonly height = input<number | string>(350);

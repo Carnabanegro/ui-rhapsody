@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, input, output, c
 import { ChartComponent } from 'ng-apexcharts';
 import type { ApexNonAxisChartSeries, ApexChart, ApexTooltip, ApexLegend, ApexTitleSubtitle, ApexDataLabels, ApexPlotOptions } from '../chart-inputs';
 import { buildChartDefaults } from '../chart-defaults';
-import { connectChartResize, CHART_CONTAINER_STYLES } from '../chart-resize';
+import { connectChartResize, chartHostStyles } from '../chart-resize';
 import type { ChartReadyEvent } from '../chart-types';
 
-@Component({ selector: 'ui-donut-chart', standalone: true, imports: [ChartComponent], template: `<apx-chart [series]="series()" [chart]="chartConfig()" [labels]="labels()" [dataLabels]="dataLabels()" [plotOptions]="plotOptions()" [tooltip]="mergedTooltip()" [legend]="mergedLegend()" [title]="title()" [colors]="mergedColors()" (chartReady)="onChartReady($event)" />`, styles: [CHART_CONTAINER_STYLES], changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None })
+@Component({ selector: 'ui-donut-chart', standalone: true, imports: [ChartComponent], template: `<apx-chart [series]="series()" [chart]="chartConfig()" [labels]="labels()" [dataLabels]="dataLabels()" [plotOptions]="plotOptions()" [tooltip]="mergedTooltip()" [legend]="mergedLegend()" [title]="title()" [colors]="mergedColors()" (chartReady)="onChartReady($event)" />`, styles: [chartHostStyles('ui-donut-chart')], changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None })
 export class UiDonutChartComponent implements OnDestroy {
   readonly series = input.required<ApexNonAxisChartSeries>();
   readonly labels = input.required<string[]>();

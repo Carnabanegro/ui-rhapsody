@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, input, output, c
 import { ChartComponent } from 'ng-apexcharts';
 import type { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexYAxis, ApexStroke, ApexFill, ApexDataLabels, ApexTooltip, ApexLegend, ApexGrid, ApexMarkers, ApexTitleSubtitle } from '../chart-inputs';
 import { buildChartDefaults } from '../chart-defaults';
-import { connectChartResize, CHART_CONTAINER_STYLES } from '../chart-resize';
+import { connectChartResize, chartHostStyles } from '../chart-resize';
 import type { ChartReadyEvent } from '../chart-types';
 
 @Component({
@@ -10,7 +10,7 @@ import type { ChartReadyEvent } from '../chart-types';
   standalone: true,
   imports: [ChartComponent],
   template: `<apx-chart [series]="series()" [chart]="chartConfig()" [xaxis]="xaxis()" [yaxis]="yaxis()" [stroke]="stroke()" [fill]="fillCfg()" [dataLabels]="dataLabels()" [tooltip]="mergedTooltip()" [legend]="mergedLegend()" [grid]="mergedGrid()" [markers]="markers()" [title]="title()" [colors]="mergedColors()" (chartReady)="onChartReady($event)" />`,
-  styles: [CHART_CONTAINER_STYLES],
+  styles: [chartHostStyles('ui-area-chart')],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
